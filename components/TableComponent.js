@@ -1,18 +1,19 @@
-import { DataDispatch } from "../pages"
 import Patient from "./Patient"
 
 export default function TableComponent(props) {
+  const onClick = props.onClick;
+
   return (
     <table>
       <tbody>
-        <tr>
-          <th>ID</th>
-          <th>gender</th>
-          <th>BirthDay</th>
+        <tr onClick={onClick}>
+          <th id="person_id">ID</th>
+          <th id="gender">gender</th>
+          <th id="birth">BirthDay</th>
           <th>Age</th>
-          <th>Race</th>
-          <th>Ethnicity</th>
-          <th>Death</th>
+          <th id="race">Race</th>
+          <th id="ethnicity">Ethnicity</th>
+          <th id="death">Death</th>
         </tr>
         {props.value.map((patient, id) => (
           <Patient key={id} value={patient}></Patient>
