@@ -19,7 +19,7 @@ export default function GraphComponent (props) {
       
       tempArr.push(arr);
     })
-  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
+  const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042', '#fbceb1', '#bce2f8', '#8d192b'];
 
   return (
     <ResponsiveContainer width="100%" height="100%">

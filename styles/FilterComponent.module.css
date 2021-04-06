@@ -6,3 +6,11 @@
   display: inline;
   padding: 5px
 }
+
+@media screen and (max-width: 700px) {
+  .filter > li {
+    
+  display: block;
+  padding: 5px
+  }
+}

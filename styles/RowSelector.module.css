@@ -1,3 +1,9 @@
 .select {
   display: inline;
 }
+
+.row_selector{
+  display: inline;
+  width: 100%;
+  text-align: right;
+}

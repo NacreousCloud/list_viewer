@@ -10,12 +10,11 @@ export default function RowSelector(props) {
   );
 
   return (
-    <>
-      <label>Rows : 
-        <select onChange={onChange} className={styles.select}>
+    <div className={styles.row_selector}>
+      <label>Rows : </label>
+      <select onChange={onChange} className={styles.select}>
           {rowItems}
-        </select>
-      </label>
-    </>
+      </select>
+    </div>
   )
 }

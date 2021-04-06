@@ -4,5 +4,7 @@
 
 .seeker > li {
   display: inline;
-  padding: 5px;
+  padding: 5px 15px;
+  /* border: 1px solid; */
+  /* margin: 0px 10px; */
 }
