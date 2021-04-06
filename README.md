@@ -1,34 +1,41 @@
-This is a [Next.js](https://nextjs.org/) project bootstrapped with [`create-next-app`](https://github.com/vercel/next.js/tree/canary/packages/create-next-app).
+이 문서는 React api Data Viewer 에 대해 설명합니다.
 
-## Getting Started
-
-First, run the development server:
+## Guide
 
 ```bash
-npm run dev
-# or
+git clone https://github.com/NacreousCloud/list_viewer.git
+cd list_viewer
+yarn install
 yarn dev
+# port 3000
 ```
+## 사용 라이브러리
+- react
+- next.js
+- axios
+- rechart
 
-Open [http://localhost:3000](http://localhost:3000) with your browser to see the result.
+## 구현 내용
+- API DATA 기반 정보 탐색 테이블 컴포넌트
+  - 받아온 데이터를 확인할 수 있다.
+  - 페이징 기능을 수행할 수 있다.
+    - Row 개수 선택
+    - 페이지 이동 
+  - 특정 컬럼 정렬이 가능하다
+    - 해당 컬럼의 th 태그를 클릭하면 기능이 수행된다.
 
-You can start editing the page by modifying `pages/index.js`. The page auto-updates as you edit the file.
+- 테이블 컴포넌트의 필터링 기능 수행이 가능하다
+  - 초기화 기능을 추가하였다.
 
-[API routes](https://nextjs.org/docs/api-routes/introduction) can be accessed on [http://localhost:3000/api/hello](http://localhost:3000/api/hello). This endpoint can be edited in `pages/api/hello.js`.
+- 목록에서 아이템 클릭시 상세 정보를 보여준다.
+  - 다시 클릭시 상세 정보창을 닫는다.
 
-The `pages/api` directory is mapped to `/api/*`. Files in this directory are treated as [API routes](https://nextjs.org/docs/api-routes/introduction) instead of React pages.
+- 테이블 컴포넌트 위에 그래프를 추가하였다.
+  - 그래프는 총 다섯가지 종류가 있다.
+  - 구현된 필터 기능을 수정할 경우, 그래프 값이 수정된다.
 
-## Learn More
+## 부족한 내용
+- 테이블 필터링 초기화 시 input 에 데이터가 지워지지않은채로 유지된다.
+- 그래프 컴포넌트의 사용경험 미숙으로 제대로 구현하는데 시간이 많이 소요되었다.
+- Design이 많이 부족하다.
 
-To learn more about Next.js, take a look at the following resources:
-
-- [Next.js Documentation](https://nextjs.org/docs) - learn about Next.js features and API.
-- [Learn Next.js](https://nextjs.org/learn) - an interactive Next.js tutorial.
-
-You can check out [the Next.js GitHub repository](https://github.com/vercel/next.js/) - your feedback and contributions are welcome!
-
-## Deploy on Vercel
-
-The easiest way to deploy your Next.js app is to use the [Vercel Platform](https://vercel.com/new?utm_medium=default-template&filter=next.js&utm_source=create-next-app&utm_campaign=create-next-app-readme) from the creators of Next.js.
-
-Check out our [Next.js deployment documentation](https://nextjs.org/docs/deployment) for more details.
