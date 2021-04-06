@@ -43,6 +43,15 @@ export default function Home() {
     race: [],
   });
 
+  const [graphState, setGraphState] = useState({
+    original: [],
+    genderStat: {},
+    raceStat: {},
+    ethnicityStat: {},
+    genderAndRaceStat: {},
+    genderAndEthnicityStat: {},
+  })
+
   
   // 컴포넌트 하나에서 모든 상태를 관리
   // 함수를 나눠서 Provider로 관리하는 방법도 생각
@@ -63,29 +72,40 @@ export default function Home() {
         gender: res.gender.genderList,
         race: res.race.raceList,
       })
-      console.log(res)
     });
-
+    // 
+    api.getPatientStats((res => {
+      setGraphState({
+        ...graphState,
+        original: res.data.stats,
+      })
+      // calcGraphStat();
+    }))
+// 
     api.getPatientsDatas(
       tableParams,
       (res) => {
-        console.log(res.data.patient.list);
         setPatientData(res.data.patient.list);
         calcMaxPage(parseInt(res.data.patient.totalLength) / parseInt(tableParams["length"]));
       }
     )
+
   }, [])
 
-  // 현재 테이블 상태가 바뀌면 테이블 렌더링
+  // 필터 상태가 바뀌면 차트 정보 재정비
+  useEffect(() => {
+    calcGraphStat();
+  }
+  , [filterParams])
+
+  // 현재 테이블 상태, 필터 상태가 바뀌면 테이블 렌더링
   useEffect(() => {
     const newObj = {};
     Object.entries(filterParams).map(item => {
-      console.log(item);
       if(item[1] === "---" || item[1] < 1) ;
       else newObj[item[0]]=item[1];
     })
     const tempObj = Object.assign({}, tableParams, newObj);
-    console.log(tempObj);
 
     api.getPatientsDatas(
       tempObj,
@@ -95,6 +115,63 @@ export default function Home() {
       }
     )
   }, [tableParams, filterParams])
+
+  useEffect(() => {
+    calcGraphStat;
+  }, [graphState.original])
+
+  const calcGraphStat = () => {
+    console.log("calcGraphStat", graphState.original);
+    const newArr = [];
+    graphState.original.map(item => {
+      let isIt = false;
+      if(filterParams.gender === "---" || filterParams.gender === item.gender) {
+        if(filterParams.ethnicity === "---" || filterParams.ethnicity === item.ethnicity) {
+          if(filterParams.race === "---" || filterParams.race === item.race) {
+            newArr.push(item);
+            isIt = true;
+          }
+        }
+      }
+      if(!isIt) {
+        const a = item;
+        a.count = 0;
+        newArr.push(a);
+      }
+    })
+    console.log(newArr);
+
+    function grouping(objectArray, propertyArray) {
+      let propertys = propertyArray.split(" ");
+      return objectArray.reduce(function (acc, obj) {
+        // key 는 현재 객체[속성];
+        let data = "";
+        for(let index in propertys) {
+          data += obj[propertys[index]] + " "
+        }
+        var key = obj[propertyArray];
+        // 누산기에 이 속성이 없다면 초기화
+        if (!acc[data]) { 
+          acc[data] = 0;
+        }
+        // 있다면 현재 객체의 값을 덧셈
+        acc[data] += (obj.count);
+        return acc;
+      }, {});
+    }
+
+    if(newArr.length > 0) {
+      setGraphState({
+        ...graphState,
+        genderStat: grouping(newArr, "gender"),
+        raceStat: grouping(newArr, "race"),
+        ethnicityStat: grouping(newArr, "ethnicity"),
+        genderAndEthnicityStat: grouping(newArr, "gender ethnicity"),
+        genderAndRaceStat: grouping(newArr, "gender race"),
+      })
+      console.log(graphState);
+    }
+  } 
 
   const moveIndex = (e) => {
     const toIndex = e.target.value;
@@ -156,7 +233,7 @@ export default function Home() {
 
         <div className={styles.graph_section}>
           {/* 그래프 */}
-          <GraphComponent></GraphComponent>
+          <GraphComponent stats={graphState}></GraphComponent>
         </div>
 
         {/* 필터 */}
