@@ -43,8 +43,8 @@ export default function Home() {
     race: [],
   });
 
-  const [graphState, setGraphState] = useState({
-    original: [],
+  const [graphState, setGraphState] = useState([]);
+  const [remakedGraphState, setRemakedGraphState] = useState({
     genderStat: {},
     raceStat: {},
     ethnicityStat: {},
@@ -73,12 +73,10 @@ export default function Home() {
         race: res.race.raceList,
       })
     });
-    // 
+    
+    // 그래프 데이터 입력
     api.getPatientStats((res => {
-      setGraphState({
-        ...graphState,
-        original: res.data.stats,
-      })
+      setGraphState(res.data.stats)
       // calcGraphStat();
     }))
 // 
@@ -91,6 +89,10 @@ export default function Home() {
     )
 
   }, [])
+
+  useEffect(() => {
+    calcGraphStat();
+  }, [graphState])
 
   // 필터 상태가 바뀌면 차트 정보 재정비
   useEffect(() => {
@@ -118,12 +120,12 @@ export default function Home() {
 
   useEffect(() => {
     calcGraphStat;
-  }, [graphState.original])
+  }, [graphState])
 
   const calcGraphStat = () => {
-    console.log("calcGraphStat", graphState.original);
+    console.log("calcGraphStat", graphState);
     const newArr = [];
-    graphState.original.map(item => {
+    graphState.map(item => {
       let isIt = false;
       if(filterParams.gender === "---" || filterParams.gender === item.gender) {
         if(filterParams.ethnicity === "---" || filterParams.ethnicity === item.ethnicity) {
@@ -161,8 +163,7 @@ export default function Home() {
     }
 
     if(newArr.length > 0) {
-      setGraphState({
-        ...graphState,
+      setRemakedGraphState({
         genderStat: grouping(newArr, "gender"),
         raceStat: grouping(newArr, "race"),
         ethnicityStat: grouping(newArr, "ethnicity"),
@@ -233,7 +234,7 @@ export default function Home() {
 
         <div className={styles.graph_section}>
           {/* 그래프 */}
-          <GraphComponent stats={graphState}></GraphComponent>
+          <GraphComponent stats={remakedGraphState}></GraphComponent>
         </div>
 
         {/* 필터 */}

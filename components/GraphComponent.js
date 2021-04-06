@@ -4,24 +4,21 @@ import { PieChart, Pie, Cell, Legend, Tooltip, ResponsiveContainer, Label } from
 export default function GraphComponent (props) {
   // 처음 초기화 시 제대로 데이터를 받지못해서 렌더링이 안된다.
   // TODO : 해결방안 찾아보기
+  console.log(props);
   const tempArr = [];
-  if(props.stats) {
     console.log(props.stats);
     Object.entries(props.stats).map((item, id) => {
-      if(item[0] !== "original") {
-        const arr = [];
-        Object.entries(item[1]).map((data, idx) => {
-          console.log(data[0], data[1]);
-          arr.push({
-            name: data[0],
-            value: data[1]
-          })
+      const arr = [];
+      Object.entries(item[1]).map((data, idx) => {
+        console.log(data[0], data[1]);
+        arr.push({
+          name: data[0],
+          value: data[1]
         })
-        
-        tempArr.push(arr);
-      }
+      })
+      
+      tempArr.push(arr);
     })
-  }
   const COLORS = ['#0088FE', '#00C49F', '#FFBB28', '#FF8042'];
 
   return (
