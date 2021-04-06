@@ -2,7 +2,7 @@ import Patient from "./Patient"
 
 export default function TableComponent(props) {
   const onClick = props.onClick;
-
+  
   return (
     <table>
       <tbody>

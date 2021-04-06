@@ -15,6 +15,25 @@ export const getPatientsDatas = (params, success, fail) => {
     .catch(fail);
 }
 
+export const getPatientDetail = async (param, success, fail) => {
+  const reqBrief = instanse.get(`/api/patient/brief/${param}`);
+  const reqDetailCondition = instanse.get(`/api/patient/detail/${param}/condition`);
+  const reqDetailDrug = instanse.get(`/api/patient/detail/${param}/drug`);
+  const reqDetailVisit = instanse.get(`/api/patient/detail/${param}/visit`);
+
+  const result = axios.all([reqBrief, reqDetailCondition, reqDetailDrug, reqDetailVisit])
+    .then((axios.spread((...responses)  => {
+      const resBreif = responses[0].data;
+      const resDetailCondition = responses[1].data.conditionList;
+      const resDetailDrug = responses[2].data.drugList;
+      const resDetailVisit = responses[3].data.visitList;
+
+      return resBreif;
+    })))
+    .catch(fail);
+  return await result;
+}
+
 // 필터 카테고리 받아오는 api
 // 한번만 실행하면 되는 함수
 export const getFilterCategory = async () => {
@@ -37,4 +56,10 @@ export const getFilterCategory = async () => {
 
   return await data;
 
+}
+
+export const getPatientStats = (success, fail) => {
+  instanse.get("/api/patient/stats")
+    .then(success)
+    .catch(fail)
 }
