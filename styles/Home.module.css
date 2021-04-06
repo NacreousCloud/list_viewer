@@ -16,6 +16,13 @@
   align-items: center;
 }
 
+.graph_section {
+  position: relative;
+  height: 300px;
+  overflow: hidden;
+  width: 80vw;
+}
+
 .footer {
   width: 100%;
   height: 100px;

@@ -1,6 +1,7 @@
 import Head from 'next/head'
 import React, { useEffect, useState } from 'react'
 import FilterComponent from '../components/FilterComponent';
+import GraphComponent from '../components/GraphComponent';
 import PageSeeker from '../components/PageSeeker';
 import RowSelector from '../components/RowSelector';
 import TableComponent from '../components/TableComponent';
@@ -152,21 +153,24 @@ export default function Home() {
       {/* Home 에 전역변수를? */}
 
       <main className={styles.main}>
-            
+
+        <div className={styles.graph_section}>
           {/* 그래프 */}
+          <GraphComponent></GraphComponent>
+        </div>
 
-          {/* 필터 */}
-          <FilterComponent category={filterCategory} onSubmit={changeFilter}></FilterComponent>
+        {/* 필터 */}
+        <FilterComponent category={filterCategory} onSubmit={changeFilter}></FilterComponent>
 
-          {/* 페이지당 Row 갯수 선택 */}
-          <RowSelector onChange={changeRow}></RowSelector>
+        {/* 페이지당 Row 갯수 선택 */}
+        <RowSelector onChange={changeRow}></RowSelector>
 
-          {/* 테이블 */}
-          <TableComponent value={patientData} onClick={clickToOrder}></TableComponent>
+        {/* 테이블 */}
+        <TableComponent value={patientData} onClick={clickToOrder}></TableComponent>
 
-          {/* 페이지 탐색바 */}
-          <PageSeeker currentPage={tableParams.page}
-          maxPage={maxPage} onClick={moveIndex}></PageSeeker>
+        {/* 페이지 탐색바 */}
+        <PageSeeker currentPage={tableParams.page}
+        maxPage={maxPage} onClick={moveIndex}></PageSeeker>
 
       </main>
 
