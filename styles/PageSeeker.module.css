@@ -1,0 +1,8 @@
+.seeker{
+  display: inline;
+}
+
+.seeker > li {
+  display: inline;
+  padding: 5px;
+}

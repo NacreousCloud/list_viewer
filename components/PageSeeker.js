@@ -1,3 +1,5 @@
+import styles from '../styles/PageSeeker.module.css'
+
 export default function PageSeeker(props) {
   const currentPage = props.currentPage;
   const maxPage = props.maxPage;
@@ -43,9 +45,9 @@ export default function PageSeeker(props) {
       {element.title}
     </IndexBlock>
   ))
-  
+
   return (
-    <ul onClick={onClick}>
+    <ul className={styles.seeker} onClick={onClick}>
       {indexItemList}  
     </ul>
   )

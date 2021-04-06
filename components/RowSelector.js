@@ -1,3 +1,5 @@
+import styles from '../styles/RowSelector.module.css'
+
 export default function RowSelector(props) {
   const onChange = props.onChange;
 
@@ -8,8 +10,12 @@ export default function RowSelector(props) {
   );
 
   return (
-    <select onChange={onChange}>
-      {rowItems}
-    </select>
+    <>
+      <label>Rows : 
+        <select onChange={onChange} className={styles.select}>
+          {rowItems}
+        </select>
+      </label>
+    </>
   )
 }

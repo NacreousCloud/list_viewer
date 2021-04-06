@@ -1,0 +1,8 @@
+.filter {
+  
+}
+
+.filter > li {
+  display: inline;
+  padding: 5px
+}

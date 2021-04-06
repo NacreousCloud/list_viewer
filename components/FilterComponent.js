@@ -1,3 +1,6 @@
+import styles from '../styles/FilterComponent.module.css'
+
+
 export default function FilterComponent(props) {
   const onSubmit = props.onSubmit;
   const filter = {};
@@ -24,7 +27,7 @@ export default function FilterComponent(props) {
   }
 
   return (
-    <ul onChange={handleChange}>
+    <ul onChange={handleChange} className={styles.filter}>
       {Object.entries(props.category).map(data => (
         <li key={data[0]}>
           <label>{data[0]} : </label>
