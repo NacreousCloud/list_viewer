@@ -123,7 +123,6 @@ export default function Home() {
   }, [graphState])
 
   const calcGraphStat = () => {
-    console.log("calcGraphStat", graphState);
     const newArr = [];
     graphState.map(item => {
       let isIt = false;
@@ -141,7 +140,6 @@ export default function Home() {
         newArr.push(a);
       }
     })
-    console.log(newArr);
 
     function grouping(objectArray, propertyArray) {
       let propertys = propertyArray.split(" ");
@@ -170,7 +168,6 @@ export default function Home() {
         genderAndEthnicityStat: grouping(newArr, "gender ethnicity"),
         genderAndRaceStat: grouping(newArr, "gender race"),
       })
-      console.log(graphState);
     }
   } 
 
@@ -178,7 +175,6 @@ export default function Home() {
     const toIndex = e.target.value;
     if(toIndex === tableParams.page) return;
     if(toIndex === 0 || toIndex === undefined || toIndex === "") return;
-    console.log(toIndex);
     setTableParams({
       ...tableParams,
       page: toIndex,
@@ -196,7 +192,6 @@ export default function Home() {
   }
 
   const changeFilter = (prop) => {
-    console.log("prop", );
     const objForSetting = {};
     Object.entries(prop).map(item => {
       objForSetting[item[0]] = item[1];
@@ -257,39 +252,3 @@ export default function Home() {
     </div>
   )
 }
-
-// Home.getInitialProps = async (ctx) => {
-//   const reqEthnicity = instanse.get("/api/ethnicity/list");
-//   const reqGender = instanse.get("/api/gender/list");
-//   const reqRace = instanse.get("/api/race/list");
-
-//   const data = await axios.all([reqEthnicity, reqGender, reqRace]).then(axios.spread((...responses) => {
-//     const resEthnicity = responses[0].data
-//     const resGender = responses[1].data
-//     const resRace = responses[2].data
-
-//     return {
-//       ethnicity: resEthnicity,
-//       gender: resGender,
-//       race: resRace,
-//     }
-//   })).catch(err => {})
-//   console.log(data);
-  
-  
-//   // const getPatientsDatas = (params, success, fail) => {
-//   //   instanse.get("/api/patient/list", {
-//   //     params: params
-//   //   })
-//   //     .then(success)
-//   //     .catch(fail);
-//   // }
-
-//   // const getFilterCategory = async () => {
-    
-  
-    
-  
-//   //   return await data;
-//   // }
-// }

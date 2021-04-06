@@ -12,7 +12,6 @@ export default function Patient(props) {
         setDetailData(res);
       })
     }
-    console.log(detailData);
   }
 
   if(props.value) {
