@@ -10,8 +10,19 @@ export const DataDispatch = React.createContext({});
 export default function Home() {
   const [patientData, setPatientData] = useState([]) 
   const [tableParams, setTableParams] = useState({
-    currentPage: 1,
-    currentRow: 10,
+    page: 1,
+    "length": 10,
+    order_column: "person_id",
+    order_desc: "true",
+  })
+  const [filterParams, setFilterParams] = useState({
+    // --- 이거나 -1일 경우 조건 미입력으로 인식
+    ethnicity: "---",
+    gender: "---",
+    race: "---",
+    maxAge: -1,
+    minAge: -1,
+    isDeath: "---",
   })
   const [maxPage, calcMaxPage] = useState(1)
   const [filterCategory, setFilterCategory] = useState({
@@ -42,6 +53,17 @@ export default function Home() {
       })
       console.log(res)
     });
+
+    api.getPatientsDatas(
+      tableParams,
+      (res) => {
+        console.log(res.data.patient.list);
+        setPatientData(res.data.patient.list);
+        calcMaxPage(parseInt(res.data.patient.totalLength) / parseInt(tableParams["length"]));
+      }, (err) => {
+
+      }
+    )
   }, [])
   
   return (
