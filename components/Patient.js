@@ -30,12 +30,13 @@ export default function Patient(props) {
         </tr>
         <tr style={{display: isClicked ? "table-row" : "none"}}>
           <th colSpan="2">visitCount</th>
-          <th colSpan="6">brief</th>
+          <th colSpan="5">brief</th>
         </tr>
         <tr style={{display: isClicked ? "table-row" : "none"}}>
           <td colSpan="2">visitCount : {detailData.visitCount}</td>
-          <td colSpan="6">{detailData.conditionList}</td>
+          <td colSpan="5">{detailData.conditionList}</td>
         </tr>
+        
       </>
     )
   } else return null;

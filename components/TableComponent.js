@@ -1,10 +1,11 @@
 import Patient from "./Patient"
+import styles from "../styles/TableComponent.module.css"
 
 export default function TableComponent(props) {
   const onClick = props.onClick;
   
   return (
-    <table>
+    <table className={styles.patient_table}>
       <tbody>
         <tr onClick={onClick}>
           <th id="person_id">ID</th>
